@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/css/bootstrap.min.css" rel="stylesheet"
+        integrity="sha384-KyZXEAg3QhqLMpG8r+8fhAXLRk2vvoC2f3B09zVXn8CA5QIVfZOJ3BCsw2P0p/We" crossorigin="anonymous">
+    {% load static %}
+    <title>Books and Authors! - Author</title>
+</head>
+
+<body>
+
+    <div class="container-fluid mt-3">
+        <div class="col m-3 text-center">
+            <h1>Author!</h1>
+        </div>
+        <div class="container col m-5">
+            <div class="row align-items-start">
+
+
+                <div class="col-4">
+                    <h4>{{author.first_name}} {{author.last_name}} </h4>
+                    <h6>Reg. N° {{author.id}}</h6>
+                    <div class="col mt-5">
+                        <h5>Books</h5>
+                        <table>
+                            <tbody>
+                                {% for b in books %}
+                                <tr>
+                                    <td><a href='/book/{{b.id}}'> {{book.title}} </a></td>
+                                </tr>
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+
+
+                <div class="col-6 ms-5 mt-5">
+                    <div class="col-6">
+                        <h5>Notes</h5>
+                    </div>
+                    <div class="col-6 mt-5">
+                        {{author.notes}}
+                    </div>
+                </div>
+
+
+                <div>
+                    <form action="/author/{{author.id}}" method="POST">
+                        {% csrf_token %}
+                            <select name="option" id="">
+                                {%for b in book %}
+                                    <option value="{{b.id}}">{{b.title}}</option>
+                                {%endfor%}
+                            </select>
+                        <button type="submit">Add</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="{% static 'js/index.js' %}"></script>
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.0/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-U1DAWAznBHeqEIlVSCgzq+c9gqGAJn5c/t99JyeKa9xxaYpSvHU5awsuZVVFIhvj"
+            crossorigin="anonymous"></script>
+</body>
+
+</html>
